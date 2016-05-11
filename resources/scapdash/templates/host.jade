@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+        title #{hostname} - Scapdash
+
+
+    body
+        h1
+            a(href="../..") Scapdash
+            span= ": " + hostname
+
+        table(border=1)
+
+            tr
+                td Advisory
+                td Name
+                td Severity
+
+            for advisory in advisories
+                tr
+                    td
+                        a(href="#{advisory.url}")
+                            span= advisory.identifier
+                    td= advisory.baseTitle
+                    td= advisory.severity

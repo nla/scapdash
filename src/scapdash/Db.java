@@ -14,9 +14,7 @@ import org.vibur.dbcp.ViburDBCPDataSource;
 
 import javax.sql.DataSource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static scapdash.Util.getenv;
 
@@ -165,6 +163,55 @@ public interface Db extends Transactional<Db> {
             this.checkinDate = checkinDate;
         }
     }
+
+    @SqlQuery("SELECT advisory.title title, advisory.severity severity " +
+            "FROM checkin " +
+            "LEFT JOIN checkin_result ON checkin_result.checkin_id = checkin.id " +
+            "LEFT JOIN advisory ON advisory.id = checkin_result.advisory_id " +
+            "WHERE checkin.id = (SELECT MAX(id) FROM checkin WHERE checkin.host_id = :host_id) " +
+            "AND checkin_result.value = 0 ")
+    @MapResultAsBean
+    List<AdvisoryRow> findAdvisoriesByHostId(@Bind("host_id") int hostId);
+
+    class AdvisoryRow {
+        private String title;
+        private String severity;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getSeverity() {
+            return severity;
+        }
+
+        public void setSeverity(String severity) {
+            this.severity = severity;
+        }
+
+        public String getIdentifier() {
+            String[] parts = title.split(":", 3);
+            return parts[0] + ":" + parts[1];
+        }
+
+        public String getBaseTitle() {
+            return title.split(":", 3)[2];
+        }
+
+        public String getUrl() {
+            String identifier = getIdentifier();
+            if (identifier.startsWith("RHSA-")) {
+                return "https://rhn.redhat.com/errata/" + identifier.replace(':', '-') + ".html";
+            } else {
+                return null;
+            }
+        }
+    }
+
 
 
 }

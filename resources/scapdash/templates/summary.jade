@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        title Host Summary - Scapdash
+
+    body
+        h1 Scapdash - Host Summary
+
+        table(border=1)
+
+            tr
+                td Host
+                td High
+                td Medium
+                td Low
+                td Total
+                td Last Checkin
+
+            for row in hostSummary
+                tr
+                    td
+                        a(href='hosts/#{row.hostname}')= row.hostname
+                    td= row.highCount
+                    td= row.mediumCount
+                    td= row.lowCount
+                    td= row.total
+                    td= row.checkinDate
