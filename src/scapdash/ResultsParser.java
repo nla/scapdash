@@ -141,6 +141,7 @@ public class ResultsParser {
                             break;
                     }
                     break;
+                case "message":
                 case "ident":
                 case "check":
                     skipChildTags(xml);
