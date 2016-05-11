@@ -27,9 +27,9 @@ public class DbTest {
     public static void openDb() throws IOException, XMLStreamException {
         ds = new ViburDBCPDataSource();
         ds.setName("ScapdashTestDB");
-        ds.setJdbcUrl(getenv("DB_URL", "jdbc:h2:mem:scapdash-junit"));
-        ds.setUsername(getenv("DB_USERNAME", "scapdashjunit"));
-        ds.setPassword(getenv("DB_PASSWORD", "scapdashjunit"));
+        ds.setJdbcUrl("jdbc:h2:mem:scapdash-junit");
+        ds.setUsername("scapdashjunit");
+        ds.setPassword("scapdashjunit");
         ds.start();
         db = Db.open(ds);
 
