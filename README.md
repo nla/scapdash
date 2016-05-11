@@ -21,6 +21,9 @@ Configuration
 
 Environment variables:
 
+    HOST=0.0.0.0
+    PORT=4567
+
     DB_URL=jdbc:h2:file:/tmp/db
     DB_USERNAME=
     DB_PASSWORD=

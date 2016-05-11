@@ -22,7 +22,7 @@ public class Scapdash {
         get("/", (req, res) -> {
             // FIXME: template
             String out = "<pre>HOST TOTAL HIGH MEDIUM LOW LAST_CHECKIN\n";
-            
+
             for (Db.HostSummaryRow row : db.hostSummary()) {
                 out += row.getHostname() + " " + row.getTotal() + " " + row.getHighCount() + " " + row.getMediumCount() + " " + row.getLowCount() + " " + row.getCheckinDate() + "\n";
             }
