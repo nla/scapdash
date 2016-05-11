@@ -91,7 +91,8 @@ public interface Db extends Transactional<Db> {
             "LEFT JOIN checkin_result ON checkin_result.checkin_id = checkin.id " +
             "LEFT JOIN advisory ON advisory.id = checkin_result.advisory_id " +
             "WHERE checkin_result.value = 0 " +
-            "GROUP BY host.id")
+            "GROUP BY host.id " +
+            "ORDER BY host.name")
     @MapResultAsBean
     List<HostSummaryRow> hostSummary();
 
